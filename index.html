@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salut, sunt Carina!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F7F5;--white:#FFFFFF;--card:#FFFFFF;--card2:#F0EFEC;
+  --dark:#111110;--text:#111110;--soft:#666662;--muted:#AAAA9F;
+  --accent:#C85C2A;--accent-bg:#FDF1EB;--border:#E4E4DF;
+  --radius:16px;--shadow:0 2px 18px rgba(0,0,0,.06);
+}
+[data-theme="dark"]{
+  --bg:#111110;--white:#1C1C1A;--card:#1C1C1A;--card2:#242422;
+  --dark:#F5F5F2;--text:#F5F5F2;--soft:#999992;--muted:#555550;
+  --accent:#E07040;--accent-bg:#2A1A10;--border:#2A2A28;
+  --shadow:0 2px 18px rgba(0,0,0,.3);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;padding:0 48px;height:56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-bottom:1px solid var(--border);}
+@media(max-width:600px){.nav{padding:0 18px;}}
+.nav-logo{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+.nav-right{display:flex;gap:6px;}
+.nb{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-family:inherit;font-weight:500;color:var(--soft);cursor:pointer;transition:all .15s;}
+.nb:hover{border-color:var(--text);color:var(--text);}
+
+/* HERO */
+.hero{max-width:1100px;margin:0 auto;padding:74px 48px 64px;display:grid;grid-template-columns:minmax(0,680px) auto;gap:64px;align-items:center;}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:40px 20px 48px;}}
+.hero-label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.hero-name{font-size:clamp(48px,6.3vw,88px);font-weight:800;letter-spacing:-.035em;line-height:1;margin-bottom:22px;max-width:10.5ch;}
+.hero-sub{font-size:clamp(16px,1.8vw,22px);color:var(--soft);max-width:30ch;line-height:1.62;margin-bottom:6px;}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px;}
+.btn-a{display:inline-flex;align-items:center;height:42px;padding:0 22px;border-radius:999px;font-size:13.5px;font-family:inherit;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s;background:transparent;color:var(--text);border:1.5px solid var(--border);}
+.btn-a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+.btn-b{display:inline-flex;align-items:center;height:42px;padding:0 22px;border-radius:999px;font-size:13.5px;font-family:inherit;font-weight:500;cursor:pointer;text-decoration:none;transition:.15s;background:transparent;color:var(--soft);border:1.5px solid var(--border);}
+.btn-b:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+.hero-photo{width:min(280px,70vw);aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;background:var(--card2);cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow);}
+@media(max-width:800px){.hero-photo{width:160px;aspect-ratio:1;border-radius:50%;margin:0 auto;}}
+.hero-photo img,.art-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-ph,.art-img-ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:500;}
+.hero-ph svg,.art-img-ph svg{opacity:.35;}
+.ov{position:absolute;inset:0;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;opacity:0;transition:.18s;color:#fff;font-size:13px;font-weight:500;}
+.hero-photo:hover .ov,.art-img:hover .ov{opacity:1;}
+
+/* TICKER */
+.ticker{overflow:hidden;padding:11px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--white);}
+.ticker-track{display:flex;animation:tick 26s linear infinite;width:max-content;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ti{display:inline-flex;align-items:center;gap:6px;padding:0 20px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.ti::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:0 48px 84px;}
+@media(max-width:600px){.main{padding:0 18px 60px;}}
+
+/* SECTION */
+.sec{padding-top:72px;}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:22px;}
+.sec-h{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em;}
+.sec-hint{font-size:12px;color:var(--muted);font-weight:500;}
+.sec-desc{font-size:14px;color:var(--soft);margin-bottom:20px;line-height:1.6;max-width:600px;}
+.sec-desc.long{max-width:760px;line-height:1.68;margin-bottom:26px;}
+
+/* CE FAC — numbered list */
+.cf-list{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card);}
+.cf-item{display:grid;grid-template-columns:52px 1fr auto;align-items:start;gap:0;padding:20px 24px;border-bottom:1px solid var(--border);transition:background .15s;}
+.cf-item:last-child{border-bottom:none;}
+.cf-item:hover{background:var(--card2);}
+.cf-link{color:inherit;text-decoration:none;cursor:pointer;}
+.cf-num{font-size:11.5px;font-weight:700;color:var(--muted);padding-top:3px;}
+.cf-title{font-size:15px;font-weight:600;margin-bottom:3px;letter-spacing:-.01em;}
+.cf-desc{font-size:13px;color:var(--soft);line-height:1.6;}
+.cf-tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-bg);padding:4px 10px;border-radius:999px;white-space:nowrap;align-self:start;margin-top:2px;}
+
+/* SOCIAL MEDIA ACCOUNTS */
+.sm-accounts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+@media(max-width:700px){.sm-accounts{grid-template-columns:1fr;}}
+.sma-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;}
+.sma-top{display:flex;align-items:center;gap:12px;}
+.sma-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sma-icon svg{width:20px;height:20px;display:block;}
+.sma-name{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+.sma-handle{font-size:12.5px;color:var(--soft);}
+.sma-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text);text-decoration:none;border:1px solid var(--border);background:transparent;border-radius:999px;padding:7px 13px;transition:.15s;align-self:flex-start;}
+.sma-link:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+
+/* SM skill cards */
+.sm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:640px){.sm-grid{grid-template-columns:1fr;}}
+.sm-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);}
+.sm-card.dark{background:var(--dark);color:var(--bg);}
+.sm-card.dark .sm-desc{color:rgba(255,255,255,.55);}
+[data-theme="dark"] .sm-card.dark{background:var(--accent);}
+[data-theme="dark"] .sm-card.dark .sm-title,[data-theme="dark"] .sm-card.dark .sm-desc{color:#fff;}
+.sm-icon{font-size:20px;margin-bottom:14px;}
+.sm-title{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px;}
+.sm-desc{font-size:13px;color:var(--soft);line-height:1.65;}
+.sm-card.dark .sm-title{color:var(--bg);}
+
+/* VIDEO GRID */
+.video-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:900px){.video-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.video-grid{grid-template-columns:repeat(2,1fr);}}
+.spotify-embed{margin:18px 0 24px;max-width:760px;border-radius:12px;overflow:hidden;}
+.video-thumb{border-radius:10px;overflow:hidden;background:var(--card2);cursor:pointer;text-decoration:none;display:block;transition:transform .18s,box-shadow .18s;}
+.video-thumb:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.video-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.video-title{font-size:12px;font-weight:600;color:var(--text);padding:8px 10px 10px;line-height:1.4;}
+
+/* ARTISTIC — design upload */
+.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:860px){.art-grid{grid-template-columns:1fr;}}
+.art-card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.art-img{aspect-ratio:3/4;background:var(--card2);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.dgrid-wrap{padding:14px;background:var(--card2);}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.dthumb{aspect-ratio:1;background:var(--bg);border-radius:8px;overflow:hidden;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted);transition:background .15s;}
+.dthumb img{width:100%;height:100%;object-fit:cover;}
+.dthumb.empty:hover{background:var(--border);}
+.drm{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.65);color:#fff;border:none;border-radius:50%;font-size:11px;display:none;cursor:pointer;align-items:center;justify-content:center;}
+.dthumb:hover .drm{display:flex;}
+.art-body{padding:18px;}
+.art-cat{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;}
+.art-title{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px;}
+.art-desc{font-size:13px;color:var(--soft);line-height:1.6;}
+
+/* CREDITS */
+.credits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:700px){.credits-grid{grid-template-columns:1fr;}}
+.credits-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);}
+.credits-cat{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.credits-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.credits-item:last-child{border-bottom:none;}
+.credits-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px;opacity:.7;}
+.credits-text{font-size:13px;color:var(--text);line-height:1.5;}
+.credits-role{font-size:11.5px;color:var(--soft);display:block;margin-top:1px;}
+
+/* AWARDS */
+.awards-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;}
+.award-item{background:var(--card);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);display:flex;gap:14px;align-items:flex-start;}
+.award-icon{font-size:22px;flex-shrink:0;}
+.award-name{font-size:14px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px;}
+.award-detail{font-size:12.5px;color:var(--soft);}
+
+/* CONTACT */
+.contact-strip{padding:58px 0 0;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;}
+.contact-item{font-size:clamp(14px,1.8vw,18px);font-weight:600;color:var(--text);text-decoration:none;transition:color .15s;}
+.contact-item:hover{color:var(--accent);}
+.contact-sep{width:4px;height:4px;border-radius:50%;background:var(--border);}
+
+/* FOOTER */
+.footer{padding:24px 48px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;font-weight:500;}
+@media(max-width:600px){.footer{padding:20px 18px;}}
+
+/* EDITABLE */
+[contenteditable="true"]{outline:none;border-radius:4px;padding:1px 3px;margin:-1px -3px;transition:background .15s;}
+[contenteditable="true"]:hover{background:rgba(200,100,50,.07);}
+[contenteditable="true"]:focus{background:rgba(200,100,50,.1);box-shadow:0 0 0 2px rgba(200,100,50,.15);}
+.hero-name[contenteditable="true"]:hover,
+.hero-name[contenteditable="true"]:focus,
+.hero-sub[contenteditable="true"]:hover,
+.hero-sub[contenteditable="true"]:focus{background:transparent;box-shadow:none;}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;cursor:zoom-out;}
+.lb.show{display:flex;}
+.lb img{max-width:100%;max-height:100%;border-radius:12px;}
+
+/* SAVE */
+.si{position:fixed;bottom:16px;right:16px;background:var(--dark);color:var(--bg);padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:50;}
+.si.show{opacity:1;transform:translateY(0);}
+.si.error{background:#c0392b;}
+
+/* PRINT / PDF */
+@media print{
+  @page{size:A4;margin:16mm;}
+  .nav,.si,.lb,#fi,#ii,.ticker,.hero-btns,.ov,.drm{display:none !important;}
+  body{background:#fff !important;color:#111 !important;font-size:11pt;line-height:1.45;}
+  .hero,.main{max-width:100% !important;padding:0 !important;margin:0 !important;}
+  .hero{display:block !important;}
+  .hero-name{font-size:36pt !important;line-height:1.05 !important;max-width:none !important;margin-bottom:10px !important;}
+  .hero-sub{font-size:12pt !important;max-width:100% !important;margin-bottom:0 !important;}
+  .hero-photo{margin-top:16px !important;width:140px !important;aspect-ratio:1/1 !important;border-radius:12px !important;box-shadow:none !important;}
+  .sec{padding-top:24px !important;break-inside:avoid-page;}
+  .sec-head{margin-bottom:12px !important;}
+  .sec-h{font-size:20pt !important;}
+  .sec-desc,.art-desc,.cf-desc,.sm-desc,.credits-text,.award-detail{color:#222 !important;}
+  .sec-desc.long{margin-bottom:16px !important;max-width:100% !important;}
+  .cf-list,.sma-card,.sm-card,.credits-card,.award-item,.art-card{box-shadow:none !important;border:1px solid #ddd !important;}
+  .video-grid,.dgrid,.awards-list,.credits-grid,.sm-grid,.sm-accounts,.cf-list{break-inside:avoid-page;}
+  .video-grid{grid-template-columns:repeat(3,1fr) !important;gap:8px !important;}
+  .video-thumb,.dthumb{break-inside:avoid;page-break-inside:avoid;}
+  .contact-strip{padding-top:28px !important;}
+  a{color:#111 !important;text-decoration:none !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-logo">Portofoliu</span>
+  <div class="nav-right">
+    <a class="nb" href="#work">Work</a>
+    <a class="nb" href="#contact">Contact</a>
+    <button class="nb" id="themeToggle" type="button" aria-label="Schimbă tema" title="Schimbă tema">Tema</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <p class="hero-label" contenteditable="true" data-key="ey">Artist · Social Media Manager</p>
+    <h1 class="hero-name" contenteditable="true" data-key="hn">Salut, sunt Carina!</h1>
+    <p class="hero-sub" contenteditable="true" data-key="hs">Creez proiecte artistice în muzică, video, design și social media.</p>
+    <div class="hero-btns">
+      <a class="btn-a" href="#contact">Contact</a>
+      <a class="btn-b" href="#work">Proiecte</a>
+    </div>
+  </div>
+  <div class="hero-photo" data-image-single="hero">
+    <div class="hero-ph">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      Adaugă foto
+    </div>
+    <div class="ov">Schimbă foto</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ti">Social Media</span><span class="ti">Content Creation</span><span class="ti">Music Production</span><span class="ti">Video Editing</span><span class="ti">Graphic Design</span><span class="ti">Songwriting</span><span class="ti">Community Mgmt</span><span class="ti">Reels & TikTok</span><span class="ti">Brand Identity</span><span class="ti">Copywriting</span><span class="ti">Artwork</span><span class="ti">Sound Design</span>
+    <span class="ti">Social Media</span><span class="ti">Content Creation</span><span class="ti">Music Production</span><span class="ti">Video Editing</span><span class="ti">Graphic Design</span><span class="ti">Songwriting</span><span class="ti">Community Mgmt</span><span class="ti">Reels & TikTok</span><span class="ti">Brand Identity</span><span class="ti">Copywriting</span><span class="ti">Artwork</span><span class="ti">Sound Design</span>
+  </div>
+</div>
+
+<div class="main" id="work">
+
+  <!-- DESPRE MINE -->
+  <div class="sec">
+    <div class="sec-head"><h2 class="sec-h">About me</h2></div>
+    <p class="sec-desc" contenteditable="true" data-key="about-me">
+      Sunt solista trupei PHASER, dar nu mă opresc la muzică. Creez universuri vizuale în jurul ei — de la editare video și design grafic, până la regie și styling. Mă interesează nu doar sunetul, ci întregul context în care acesta prinde formă: imagine, atmosferă, identitate. Lucrez intuitiv, dar cu atenție la detalii, construind concepte care nu doar arată bine, ci se simt.
+    </p>
+  </div>
+
+  <!-- CE FAC -->
+  <div class="sec">
+    <div class="sec-head"><h2 class="sec-h">Work</h2></div>
+    <div class="cf-list">
+      <a class="cf-item cf-link" href="#social-media">
+        <span class="cf-num">01</span>
+        <div><div class="cf-title" data-key="cf1t">Social Media</div><div class="cf-desc" data-key="cf1d">Strategie, planificare conținut, calendare editoriale și management comunitate pe Instagram, TikTok, Facebook etc.</div></div>
+        <span class="cf-tag">Social Media</span>
+      </a>
+      <a class="cf-item cf-link" href="#social-media">
+        <span class="cf-num">02</span>
+        <div><div class="cf-title" data-key="cf2t">Content Creation</div><div class="cf-desc" data-key="cf2d">Postări, reels, stories și campanii vizuale — de la concept la publicare.</div></div>
+        <span class="cf-tag">Social Media</span>
+      </a>
+      <a class="cf-item cf-link" href="#muzica">
+        <span class="cf-num">03</span>
+        <div><div class="cf-title" data-key="cf3t">Muzică</div><div class="cf-desc" data-key="cf3d">Compun, cânt și produc muzică. De la idee la single finalizat — vocal, aranjament, mixaj.</div></div>
+        <span class="cf-tag">Muzică</span>
+      </a>
+      <a class="cf-item cf-link" href="#video">
+        <span class="cf-num">04</span>
+        <div><div class="cf-title" data-key="cf4t">Video</div><div class="cf-desc" data-key="cf4d">Filmare și editare videoclipuri, reels și conținut video pentru social media.</div></div>
+        <span class="cf-tag">Video</span>
+      </a>
+      <a class="cf-item cf-link" href="#graphic-design">
+        <span class="cf-num">05</span>
+        <div><div class="cf-title" data-key="cf5t">Graphic Design</div><div class="cf-desc" data-key="cf5d">Cover art, postere, identitate vizuală, template-uri pentru social media și artwork original.</div></div>
+        <span class="cf-tag">Graphic Design</span>
+      </a>
+      <a class="cf-item cf-link" href="#compozitie-productie">
+        <span class="cf-num">06</span>
+        <div><div class="cf-title">Compoziție & Producție</div><div class="cf-desc">Compoziție muzicală, producție și sound design pentru teatru, film și proiecte interdisciplinare.</div></div>
+        <span class="cf-tag">Compoziție</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- SOCIAL MEDIA -->
+  <div class="sec" id="social-media">
+    <div class="sec-head"><h2 class="sec-h">Social Media</h2></div>
+    <p class="sec-desc">Ca solistă și membră <strong>Phaser</strong>, m-am ocupat de întreaga prezență online a trupei — strategie, creare de conținut, postări și management comunitate.</p>
+    <div class="sm-accounts">
+      <div class="sma-card">
+        <div class="sma-top">
+          <div class="sma-icon" style="background:#FDECF3;color:#E1306C;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.95 2.55a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
+          </div>
+          <div><div class="sma-name">Instagram</div><div class="sma-handle">@wearephaser</div></div>
+        </div>
+        <a class="sma-link" href="https://www.instagram.com/wearephaser/" target="_blank" rel="noopener">Vezi pe Instagram ↗</a>
+      </div>
+      <div class="sma-card">
+        <div class="sma-top">
+          <div class="sma-icon" style="background:#EAF2FF;color:#1877F2;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.45H7.08v-3.48h3.05V9.42c0-3.03 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.88v2.26h3.34l-.53 3.48h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+          </div>
+          <div><div class="sma-name">Facebook</div><div class="sma-handle">PhaserOfficial</div></div>
+        </div>
+        <a class="sma-link" href="https://www.facebook.com/PhaserOfficial/" target="_blank" rel="noopener">Vezi pe Facebook ↗</a>
+      </div>
+      <div class="sma-card">
+        <div class="sma-top">
+          <div class="sma-icon" style="background:#F1F1F1;color:#111;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.78h-3.07v13.2a2.9 2.9 0 1 1-2-2.75V9.24A6 6 0 1 0 13.5 15V8.31a7.86 7.86 0 0 0 4.63 1.5V6.69h1.46Z"/></svg>
+          </div>
+          <div><div class="sma-name">TikTok</div><div class="sma-handle">@wearephaser</div></div>
+        </div>
+        <a class="sma-link" href="https://www.tiktok.com/@wearephaser" target="_blank" rel="noopener">Vezi pe TikTok ↗</a>
+      </div>
+    </div>
+    <div class="sm-grid">
+      <div class="sm-card dark">
+        <div class="sm-icon">📅</div>
+        <div class="sm-title" contenteditable="true" data-key="sm1t">Strategie & Planificare</div>
+        <div class="sm-desc" contenteditable="true" data-key="sm1d">Calendare editoriale și strategii de conținut adaptate publicului și obiectivelor brandului.</div>
+      </div>
+      <div class="sm-card">
+        <div class="sm-icon">🖼</div>
+        <div class="sm-title" contenteditable="true" data-key="sm2t">Visual Content</div>
+        <div class="sm-desc" contenteditable="true" data-key="sm2d">Grafică, reels și stories cu identitate vizuală coerentă — de la concept la publicare.</div>
+      </div>
+      <div class="sm-card">
+        <div class="sm-icon">✍️</div>
+        <div class="sm-title" contenteditable="true" data-key="sm3t">Copywriting</div>
+        <div class="sm-desc" contenteditable="true" data-key="sm3d">Caption-uri și texte de campanie care sună autentic și se potrivesc cu vocea brandului.</div>
+      </div>
+      <div class="sm-card">
+        <div class="sm-icon">👥</div>
+        <div class="sm-title" contenteditable="true" data-key="sm4t">Community Management</div>
+        <div class="sm-desc" contenteditable="true" data-key="sm4d">Comentarii, DM-uri și colaborări gestionate cu tonul potrivit al brandului.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUZICA -->
+  <div class="sec" id="muzica">
+    <div class="sec-head">
+      <h2 class="sec-h">Muzică</h2>
+      <a href="https://open.spotify.com/artist/31XVKPMoexodcassow7K6g" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">Vezi pe Spotify ↗</a>
+    </div>
+    <p class="sec-desc long" contenteditable="true" data-key="music-long">Activitatea mea muzicală se construiește în jurul versatilității — atât în zona de stiluri, cât și în modul în care îmi definesc identitatea artistică. Cu PHASER explorez zona pop-rock, iar prin proiectul Mademoiselle Claudette intru într-un univers lo-fi, cu influențe franceze, mai intim și atmosferic.<br><br>Am colaborat în studio cu George Hora, alături de care am lansat piesa „Armele jos”, și cu trupa Desant pentru piesa „Poveste fără nume”, experiențe care mi-au extins direcțiile creative. Sunt deschisă către colaborări noi și continui să explorez forme diferite de expresie muzicală și estetică.<br><br>Activitatea mea în producție muzicală include atât lucrul în studio, cât și proiecte interdisciplinare. Am fost asistent de producție pentru albumul PHASER „Început de Univers”, contribuind la organizarea și desfășurarea procesului de înregistrare, dar și post-producție.</p>
+    <div class="spotify-embed">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/31XVKPMoexodcassow7K6g?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="sec" id="video">
+    <div class="sec-head">
+      <h2 class="sec-h">Video</h2>
+      <a href="https://www.youtube.com/user/TrupaPhaser" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">Vezi canal YouTube ↗</a>
+    </div>
+    <p class="sec-desc long">
+      În zona video am semnat regia majorității videoclipurilor PHASER, construind un univers vizual coerent în jurul proiectului. M-am implicat în direcția creativă, styling și producție, urmărind fiecare detaliu de la concept la execuție.<br><br>
+      Pentru mine, videoclipul este o extensie a muzicii — un spațiu în care imaginea și sunetul se completează natural.
+    </p>
+    <div class="video-grid">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v=p8xFbO-AIcI" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/p8xFbO-AIcI/mqdefault.jpg" alt="Copilul lunii" loading="lazy">
+        <div class="video-title">Copilul lunii</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/DAmjXBLWsmo" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/DAmjXBLWsmo/mqdefault.jpg" alt="Fast Forward" loading="lazy">
+        <div class="video-title">Fast Forward</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/oDIgZS5gTYQ" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/oDIgZS5gTYQ/mqdefault.jpg" alt="Suflete pierdute" loading="lazy">
+        <div class="video-title">Suflete pierdute</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/esS85hEopwo" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/esS85hEopwo/mqdefault.jpg" alt="Anonimi" loading="lazy">
+        <div class="video-title">Anonimi</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/wV6OGC6lQSw" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/wV6OGC6lQSw/mqdefault.jpg" alt="Sânge rece" loading="lazy">
+        <div class="video-title">Sânge rece</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/Cc2tKAEyoCY" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/Cc2tKAEyoCY/mqdefault.jpg" alt="O viață și încă o descundă" loading="lazy">
+        <div class="video-title">O viață și încă o descundă</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/Ny6ooTWjikc" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/Ny6ooTWjikc/mqdefault.jpg" alt="Armele jos" loading="lazy">
+        <div class="video-title">Armele jos</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/Kgx7AOehfYM" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/Kgx7AOehfYM/mqdefault.jpg" alt="Mi-e dor de el" loading="lazy">
+        <div class="video-title">Mi-e dor de el</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/IItmbdI7Hvk" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/IItmbdI7Hvk/mqdefault.jpg" alt="Fapte, nu vorbe" loading="lazy">
+        <div class="video-title">Fapte, nu vorbe</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/sjneUnbCXOM" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/sjneUnbCXOM/mqdefault.jpg" alt="Home for Christmas" loading="lazy">
+        <div class="video-title">Home for Christmas</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/pNva0OXWo1o" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/pNva0OXWo1o/mqdefault.jpg" alt="Pour toi et pour moi" loading="lazy">
+        <div class="video-title">Pour toi et pour moi</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/bZHemoPx5-U" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/bZHemoPx5-U/mqdefault.jpg" alt="Călători" loading="lazy">
+        <div class="video-title">Călători</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/YxoLmmJ5Mf4" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/YxoLmmJ5Mf4/mqdefault.jpg" alt="Suntem doar noi" loading="lazy">
+        <div class="video-title">Suntem doar noi</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/p-zGeSHCgtI" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/p-zGeSHCgtI/mqdefault.jpg" alt="Spune-mi unde ești" loading="lazy">
+        <div class="video-title">Spune-mi unde ești</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/y2RWGWV6QxE" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/y2RWGWV6QxE/mqdefault.jpg" alt="Până vine dimineața" loading="lazy">
+        <div class="video-title">Până vine dimineața</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/6Mxz-oWdm8s" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/6Mxz-oWdm8s/mqdefault.jpg" alt="Indestructibil" loading="lazy">
+        <div class="video-title">Indestructibil</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/y6Z-xMxjM9I" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/y6Z-xMxjM9I/mqdefault.jpg" alt="Alerg" loading="lazy">
+        <div class="video-title">Alerg</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/jVxTekFdwHo" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/jVxTekFdwHo/mqdefault.jpg" alt="Mă aprinzi" loading="lazy">
+        <div class="video-title">Mă aprinzi</div>
+      </a>
+      <a class="video-thumb" href="https://youtu.be/rKrvl7_B1N8" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/rKrvl7_B1N8/mqdefault.jpg" alt="Copilăria" loading="lazy">
+        <div class="video-title">Copilăria</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- COMPOZITIE -->
+  <div class="sec" id="compozitie-productie">
+    <div class="sec-head"><h2 class="sec-h">Compoziție & Producție</h2></div>
+    <p class="sec-desc">Am compus și produs muzică pentru proiecte de teatru și formate alternative, colaborând cu regizori și artiști din zona performativă.</p>
+    <div class="credits-grid">
+
+      <div class="credits-card">
+        <div class="credits-cat">Teatru</div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Orașul Paralel — Fabric<span class="credits-role">Ana Mărgineanu (regie) · Peca Ștefan (text)</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Doctorii fantastici<span class="credits-role">Teatru pentru Tine</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Crește-mi aripi<span class="credits-role">WebTheatre · Teatru pentru Tine</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Săptămâna mustelor<span class="credits-role">DialogIn · Teatru pentru Tine</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Short Histories · Aventurile lui Yu și Huu<span class="credits-role">Teatru pentru Tine</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Aventurile lui Yu și Huu — Deșertul Sahara</div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Joc în groapă cu nisip<span class="credits-role">Teatru pentru Tine · Producător / Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Călătorie în Timp — Teatru Ambulant<span class="credits-role">Teatru pentru Tine · Producător / Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Marea Unire — Proiectul Centenar<span class="credits-role">Teatru pentru Tine · Producător / Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Strada Nr. 4 · Maidan, frumosul meu dezastru<span class="credits-role">Teatru pentru Tine · Producător muzical</span></div></div>
+      </div>
+
+      <div class="credits-card">
+        <div class="credits-cat">Film</div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Serial Bunici Antikitsch (Ep. 1–5)<span class="credits-role">Asociația Culturală Kratima · Post-producție Audio / Sound Design</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Short film "The Mechanic"<span class="credits-role">Producător · Compozitor · Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Short film "Shuffle"<span class="credits-role">Producător · Compozitor · Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Școala de film · Orașul Paralel<span class="credits-role">Compozitor · Sound Design</span></div></div>
+        <div class="credits-cat" style="margin-top:18px;">Audiobooks</div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Săptămâna mustelor · Mai aproape de soare · Ziua Elefantului · Pârliți · Cuib Molcut<span class="credits-role">DialogIn · Teatru pentru Tine · Inginer de sunet</span></div></div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Crește-mi aripi · Luptători pentru singurătate · Și revoluția va fi asimptomatică<span class="credits-role">Web Theatre · Teatru pentru Tine · Inginer de sunet</span></div></div>
+        <div class="credits-cat" style="margin-top:18px;">Reclame & Jingle-uri</div>
+        <div class="credits-item"><div class="credits-dot"></div><div class="credits-text">Contakt · Kai · Nectar D'or · Isolex · Winner Bet<span class="credits-role">Producător muzical · Compozitor · Sound Design</span></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PREMII -->
+  <div class="sec">
+    <div class="sec-head"><h2 class="sec-h">Premii</h2></div>
+    <div class="awards-list">
+      <div class="award-item">
+        <div class="award-icon">🏆</div>
+        <div><div class="award-name">Câștigător — Manifest Yourself</div><div class="award-detail">Peninsula Festival · Phaser</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-icon">🎖</div>
+        <div><div class="award-name">Semifinalist — Eurovision Song Contest Romania</div><div class="award-detail">Phaser</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-icon">🥈</div>
+        <div><div class="award-name">Locul 2 — Gaudeamus Festival</div><div class="award-detail">Phaser</div></div>
+      </div>
+      <div class="award-item">
+        <div class="award-icon">🎗</div>
+        <div><div class="award-name">Finalist — Manifest Yourself</div><div class="award-detail">Phaser</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN -->
+  <div class="sec" id="graphic-design">
+    <div class="sec-head">
+      <h2 class="sec-h">Graphic Design</h2>
+      <span class="sec-hint">Selecție lucrări</span>
+    </div>
+    <div class="art-card" style="max-width:100%;">
+      <div class="art-body">
+        <p class="art-cat">Artwork & Design</p>
+        <p class="art-title" contenteditable="true" data-key="dt">Lucrari grafice</p>
+        <p class="art-desc" contenteditable="true" data-key="dd">În zona de graphic design, am lucrat la tot ce ține de universul vizual al proiectelor muzicale: artwork-uri pentru single-uri, cover-uri de album, materiale pentru social media și afișe de promovare.<br><br>Cel mai amplu proiect a fost realizarea packaging-ului pentru albumul PHASER „Început de Univers”. Am construit o direcție vizuală coerentă, de la concept până la detaliile finale, astfel încât identitatea proiectului să fie clară și recognoscibilă pe toate materialele.</p>
+      </div>
+      <div class="dgrid-wrap"><div class="dgrid" data-gallery="dg"></div></div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-strip" id="contact">
+    <a class="contact-item" contenteditable="true" data-key="cp">0746 239 595</a>
+    <div class="contact-sep"></div>
+    <a class="contact-item" contenteditable="true" data-key="ce">carinadumitru@gmail.com</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span>© 2026 Carina · Portfolio</span>
+</footer>
+
+<div class="lb" id="lb" onclick="this.classList.remove('show')"><img id="lbImg" alt=""></div>
+
+<script>
+(function(){
+  const SK="carina-v8",MW=1400,Q=.82,SL=9,DESIGN_MAX=80;
+  const DEFAULT_HERO_IMAGE="SDF02538.jpg";
+  const DEFAULT_DESIGN_IMAGES=[
+    "Poze%20Grafic%20Design/IMG_3446.PNG",
+    "Poze%20Grafic%20Design/IMG_3534.PNG",
+    "Poze%20Grafic%20Design/IMG_3831.JPG",
+    "Poze%20Grafic%20Design/IMG_3857.jpg",
+    "Poze%20Grafic%20Design/IMG_3882.jpg",
+    "Poze%20Grafic%20Design/IMG_4062.JPG",
+    "Poze%20Grafic%20Design/IMG_4063.JPG",
+    "Poze%20Grafic%20Design/IMG_4064.JPG",
+    "Poze%20Grafic%20Design/IMG_4065.JPG",
+    "Poze%20Grafic%20Design/IMG_4066.JPG",
+    "Poze%20Grafic%20Design/IMG_4067.JPG",
+    "Poze%20Grafic%20Design/IMG_4068.JPG",
+    "Poze%20Grafic%20Design/IMG_4069.JPG",
+    "Poze%20Grafic%20Design/IMG_4070.JPG",
+    "Poze%20Grafic%20Design/IMG_4071.JPG",
+    "Poze%20Grafic%20Design/IMG_4072.JPG",
+    "Poze%20Grafic%20Design/IMG_4073.JPG",
+    "Poze%20Grafic%20Design/IMG_4074.JPG",
+    "Poze%20Grafic%20Design/IMG_4075.JPG",
+    "Poze%20Grafic%20Design/IMG_4076.JPG",
+    "Poze%20Grafic%20Design/IMG_4077.JPG",
+    "Poze%20Grafic%20Design/IMG_4078.JPG",
+    "Poze%20Grafic%20Design/IMG_4079.JPG",
+    "Poze%20Grafic%20Design/IMG_4080.JPG",
+    "Poze%20Grafic%20Design/IMG_4081.JPG",
+    "Poze%20Grafic%20Design/IMG_6592.PNG"
+  ];
+  let S={texts:{},images:{},galleries:{},links:{}};
+  const D={};
+  document.querySelectorAll("[contenteditable]").forEach(e=>e.removeAttribute("contenteditable"));
+  try{const r=localStorage.getItem(SK);if(r)S={texts:{},images:{},galleries:{},links:{},...JSON.parse(r)};}catch(e){}
+
+  function ind(m,e){const el=document.getElementById("si");el.textContent=m;el.classList.toggle("error",!!e);el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1300);}
+
+  function applyTheme(t){document.documentElement.setAttribute("data-theme",t);}
+  const THEME_KEY="carina-th8";
+  function getTheme(){
+    const t=localStorage.getItem(THEME_KEY);
+    return (t==="dark"||t==="light")?t:"light";
+  }
+  function setTheme(t){
+    applyTheme(t);
+    try{localStorage.setItem(THEME_KEY,t);}catch(e){}
+    const b=document.getElementById("themeToggle");
+    if(b){
+      const isDark=t==="dark";
+      b.textContent=isDark?"Light":"Dark";
+      b.setAttribute("aria-label",isDark?"Schimbă pe tema light":"Schimbă pe tema dark");
+      b.setAttribute("title",isDark?"Schimbă pe tema light":"Schimbă pe tema dark");
+    }
+  }
+  setTheme(getTheme());
+
+  const themeBtn=document.getElementById("themeToggle");
+  if(themeBtn){
+    themeBtn.addEventListener("click",()=>{
+      setTheme(getTheme()==="dark"?"light":"dark");
+    });
+  }
+
+  let st;
+  function save(now){clearTimeout(st);const run=()=>{try{localStorage.setItem(SK,JSON.stringify(S));ind("Salvat");}catch(e){ind("Spațiu plin",true);}};if(now)run();else st=setTimeout(run,400);}
+
+  function lb(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("show");}
+  window.addEventListener("keydown",ev=>{if(ev.key==="Escape")document.getElementById("lb").classList.remove("show");});
+
+  function rSingle(k){
+    const el=document.querySelector('[data-image-single="'+k+'"]');if(!el)return;
+    const old=el.querySelector("img");if(old)old.remove();
+    const ph=el.querySelector(".hero-ph,.art-img-ph");
+    const src=S.images[k] || (k==="hero" ? DEFAULT_HERO_IMAGE : "");
+    if(src){const img=document.createElement("img");img.src=src;img.alt="";img.addEventListener("click",ev=>{ev.stopPropagation();lb(src);});el.insertBefore(img,el.firstChild);if(ph)ph.style.display="none";}
+    else{if(ph)ph.style.display="";}
+  }
+
+  function rDesign(){
+    const el=document.querySelector('[data-gallery="dg"]');if(!el)return;el.innerHTML="";
+    const items=(S.galleries["dg"]&&S.galleries["dg"].length?S.galleries["dg"]:DEFAULT_DESIGN_IMAGES)||[];
+    const slots=Math.min(DESIGN_MAX,items.length);
+    for(let i=0;i<slots;i++){
+      const s=document.createElement("div");s.className="dthumb";
+      const img=document.createElement("img");img.src=items[i];img.alt="";img.addEventListener("click",ev=>{ev.stopPropagation();lb(items[i]);});s.appendChild(img);
+      el.appendChild(s);
+    }
+  }
+
+  document.querySelectorAll("[data-image-single]").forEach(el=>rSingle(el.dataset.imageSingle));
+  rDesign();
+})();
+</script>
+</body>
+</html>
