@@ -33,19 +33,10 @@
     .nb:hover{border-color:rgba(200,92,42,.35);color:var(--text);background:var(--accent-bg);}
     .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
 
-    .wrap{max-width:900px;margin:0 auto;padding:48px;}
-    @media(max-width:600px){.wrap{padding:26px 18px 40px;}}
-    .top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
-    .h{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.05;}
-    .sub{color:var(--soft);font-size:14px;max-width:62ch;}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-    .btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;font-size:13.5px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;background:transparent;color:var(--text);border:1.5px solid var(--border);}
-    .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
-    .card{margin-top:18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-    .notice{padding:18px 18px 0;color:var(--soft);font-size:13.5px;}
-    .frame{width:100%;height:min(78vh,920px);border:0;display:block;background:var(--card2);}
-    .fallback{padding:18px;color:var(--soft);font-size:13.5px;}
-    @media print{.nav,.actions{display:none !important;} body{background:#fff !important;color:#111 !important;} .wrap{padding:0 !important;} .card{box-shadow:none !important;border:0 !important;}}
+    main{height:calc(100vh - 56px);}
+    @media(max-width:600px){main{height:calc(100vh - 60px);}}
+    .frame{width:100%;height:100%;border:0;display:block;background:var(--card2);}
+    @media print{.nav{display:none !important;} body{background:#fff !important;color:#111 !important;} main{height:auto !important;}}
   </style>
 </head>
 <body>
@@ -53,27 +44,12 @@
     <span class="nav-logo">Portofoliu</span>
     <div class="nav-right">
       <a class="nb" href="index.html#work">Înapoi</a>
-      <a class="nb" href="index.html#contact">Contact</a>
+      <a class="nb" href="CV.pdf" download>Descarcă PDF</a>
     </div>
   </nav>
 
-  <main class="wrap">
-    <div class="top">
-      <div>
-        <h1 class="h">CV</h1>
-        <p class="sub">Poți deschide CV-ul direct în pagină sau îl poți descărca în format PDF.</p>
-        <div class="actions">
-          <a class="btn" href="CV.pdf" download>Descarcă PDF</a>
-          <a class="btn" href="index.html#contact">Contact</a>
-        </div>
-      </div>
-    </div>
-
-    <section class="card" aria-label="CV PDF">
-      <div class="notice">Dacă vezi o zonă goală, înseamnă că încă nu ai încărcat fișierul <strong>CV.pdf</strong> în proiect.</div>
-      <iframe class="frame" src="CV.pdf" title="CV PDF"></iframe>
-      <div class="fallback">Tip: pune CV-ul tău în rădăcina site-ului cu numele <strong>CV.pdf</strong> (sau spune-mi cum se numește fișierul și îți actualizez link-ul).</div>
-    </section>
+  <main>
+    <iframe class="frame" src="CV.pdf" title="CV PDF"></iframe>
   </main>
 </body>
 </html>
