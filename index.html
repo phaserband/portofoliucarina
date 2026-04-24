@@ -14,23 +14,65 @@
   --dark:#111110;--text:#111110;--soft:#666662;--muted:#AAAA9F;
   --accent:#C85C2A;--accent-bg:#FDF1EB;--border:#E4E4DF;
   --radius:16px;--shadow:0 2px 18px rgba(0,0,0,.06);
+  --focus:0 0 0 4px rgba(200,92,42,.18);
 }
 [data-theme="dark"]{
   --bg:#111110;--white:#1C1C1A;--card:#1C1C1A;--card2:#242422;
   --dark:#F5F5F2;--text:#F5F5F2;--soft:#999992;--muted:#555550;
   --accent:#E07040;--accent-bg:#2A1A10;--border:#2A2A28;
   --shadow:0 2px 18px rgba(0,0,0,.3);
+  --focus:0 0 0 4px rgba(224,112,64,.22);
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:rgba(200,92,42,.18);}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;padding:0 48px;height:56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-bottom:1px solid var(--border);}
 @media(max-width:600px){.nav{padding:0 18px;}}
 .nav-logo{font-size:15px;font-weight:700;letter-spacing:-.01em;}
-.nav-right{display:flex;gap:6px;}
+.nav-right{display:flex;gap:6px;align-items:center;}
 .nb{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-family:inherit;font-weight:500;color:var(--soft);cursor:pointer;transition:all .15s;}
 .nb:hover{border-color:var(--text);color:var(--text);}
+.nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
+
+/* THEME TOGGLE */
+.theme-toggle{
+  --h:34px; --w:74px; --p:4px;
+  height:var(--h); width:var(--w);
+  border-radius:999px;
+  display:inline-flex; align-items:center; justify-content:space-between;
+  padding:0 var(--p);
+  background:linear-gradient(180deg,var(--white),var(--card));
+  border:1px solid var(--border);
+  box-shadow:0 1px 0 rgba(0,0,0,.03);
+  color:var(--text);
+  cursor:pointer;
+  position:relative;
+  transition:transform .12s, background .15s, border-color .15s;
+}
+[data-theme="dark"] .theme-toggle{background:linear-gradient(180deg,#1E1E1C,#171716); box-shadow:0 1px 0 rgba(255,255,255,.03);}
+.theme-toggle:hover{transform:translateY(-1px);border-color:rgba(200,92,42,.35);}
+.theme-toggle:active{transform:translateY(0);}
+.theme-toggle:focus-visible{outline:none;box-shadow:var(--focus);}
+.theme-toggle .tt-ico{width:22px;height:22px;display:flex;align-items:center;justify-content:center;opacity:.6;transition:opacity .15s, transform .15s; user-select:none;}
+.theme-toggle .tt-ico svg{width:16px;height:16px;display:block;}
+.theme-toggle .tt-thumb{
+  position:absolute; top:50%; left:var(--p);
+  width:calc(var(--h) - (var(--p) * 2));
+  height:calc(var(--h) - (var(--p) * 2));
+  border-radius:999px;
+  transform:translate(0,-50%);
+  background:var(--bg);
+  border:1px solid var(--border);
+  box-shadow:0 10px 26px rgba(0,0,0,.10);
+  transition:transform .2s cubic-bezier(.2,.9,.2,1), background .15s, border-color .15s;
+}
+[data-theme="dark"] .theme-toggle .tt-thumb{background:#0F0F0E; box-shadow:0 12px 30px rgba(0,0,0,.45);}
+.theme-toggle[data-state="dark"] .tt-thumb{transform:translate(calc(var(--w) - var(--h)), -50%);}
+.theme-toggle[data-state="light"] .tt-ico.sun{opacity:1; transform:translateY(-.5px);}
+.theme-toggle[data-state="dark"] .tt-ico.moon{opacity:1; transform:translateY(-.5px);}
+.theme-toggle .tt-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
 /* HERO */
 .hero{max-width:1100px;margin:0 auto;padding:74px 48px 64px;display:grid;grid-template-columns:minmax(0,680px) auto;gap:64px;align-items:center;}
@@ -180,6 +222,33 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 .si.show{opacity:1;transform:translateY(0);}
 .si.error{background:#c0392b;}
 
+/* MOBILE POLISH */
+@media(max-width:520px){
+  .nav{height:60px;}
+  .nav-right{gap:8px;}
+  .nb{padding:8px 12px;border-radius:10px;font-size:12.5px;}
+  .theme-toggle{--h:38px; --w:82px;}
+  .hero{padding:32px 18px 40px;gap:22px;}
+  .hero-name{max-width:none;}
+  .hero-btns{gap:10px;margin-top:22px;}
+  .btn-a,.btn-b{height:44px;padding:0 18px;}
+  .sec{padding-top:54px;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .sec-desc,.sec-desc.long{font-size:14.5px;}
+  .cf-item{grid-template-columns:38px 1fr; grid-auto-rows:auto; padding:18px 18px;}
+  .cf-tag{grid-column:1 / -1; margin-top:10px; justify-self:flex-start;}
+  .video-thumb:hover{transform:none; box-shadow:none;}
+  .dgrid{grid-template-columns:repeat(2,1fr);}
+  .contact-strip{padding-top:44px; gap:12px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .ticker-track{animation:none;}
+  .video-thumb{transition:none;}
+  .theme-toggle,.theme-toggle .tt-thumb,.theme-toggle .tt-ico{transition:none;}
+}
+
 /* PRINT / PDF */
 @media print{
   @page{size:A4;margin:16mm;}
@@ -212,7 +281,21 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   <div class="nav-right">
     <a class="nb" href="#work">Work</a>
     <a class="nb" href="#contact">Contact</a>
-    <button class="nb" id="themeToggle" type="button" aria-label="Schimbă tema" title="Schimbă tema">Tema</button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Schimbă tema" aria-pressed="false" data-state="light">
+      <span class="tt-ico sun" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4.2"></circle>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"></path>
+        </svg>
+      </span>
+      <span class="tt-thumb" aria-hidden="true"></span>
+      <span class="tt-ico moon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 14.6A7.6 7.6 0 0 1 9.4 3a6.3 6.3 0 1 0 11.6 11.6Z"></path>
+        </svg>
+      </span>
+      <span class="tt-sr" id="themeToggleSr">Schimbă pe tema dark</span>
+    </button>
   </div>
 </nav>
 
@@ -372,79 +455,79 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
     </p>
     <div class="video-grid">
       <a class="video-thumb" href="https://www.youtube.com/watch?v=p8xFbO-AIcI" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/p8xFbO-AIcI/mqdefault.jpg" alt="Copilul lunii" loading="lazy">
+        <img src="https://img.youtube.com/vi/p8xFbO-AIcI/mqdefault.jpg" alt="Copilul lunii" loading="lazy" decoding="async">
         <div class="video-title">Copilul lunii</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/DAmjXBLWsmo" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/DAmjXBLWsmo/mqdefault.jpg" alt="Fast Forward" loading="lazy">
+        <img src="https://img.youtube.com/vi/DAmjXBLWsmo/mqdefault.jpg" alt="Fast Forward" loading="lazy" decoding="async">
         <div class="video-title">Fast Forward</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/oDIgZS5gTYQ" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/oDIgZS5gTYQ/mqdefault.jpg" alt="Suflete pierdute" loading="lazy">
+        <img src="https://img.youtube.com/vi/oDIgZS5gTYQ/mqdefault.jpg" alt="Suflete pierdute" loading="lazy" decoding="async">
         <div class="video-title">Suflete pierdute</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/esS85hEopwo" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/esS85hEopwo/mqdefault.jpg" alt="Anonimi" loading="lazy">
+        <img src="https://img.youtube.com/vi/esS85hEopwo/mqdefault.jpg" alt="Anonimi" loading="lazy" decoding="async">
         <div class="video-title">Anonimi</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/wV6OGC6lQSw" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/wV6OGC6lQSw/mqdefault.jpg" alt="Sânge rece" loading="lazy">
+        <img src="https://img.youtube.com/vi/wV6OGC6lQSw/mqdefault.jpg" alt="Sânge rece" loading="lazy" decoding="async">
         <div class="video-title">Sânge rece</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/Cc2tKAEyoCY" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/Cc2tKAEyoCY/mqdefault.jpg" alt="O viață și încă o descundă" loading="lazy">
+        <img src="https://img.youtube.com/vi/Cc2tKAEyoCY/mqdefault.jpg" alt="O viață și încă o descundă" loading="lazy" decoding="async">
         <div class="video-title">O viață și încă o descundă</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/Ny6ooTWjikc" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/Ny6ooTWjikc/mqdefault.jpg" alt="Armele jos" loading="lazy">
+        <img src="https://img.youtube.com/vi/Ny6ooTWjikc/mqdefault.jpg" alt="Armele jos" loading="lazy" decoding="async">
         <div class="video-title">Armele jos</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/Kgx7AOehfYM" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/Kgx7AOehfYM/mqdefault.jpg" alt="Mi-e dor de el" loading="lazy">
+        <img src="https://img.youtube.com/vi/Kgx7AOehfYM/mqdefault.jpg" alt="Mi-e dor de el" loading="lazy" decoding="async">
         <div class="video-title">Mi-e dor de el</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/IItmbdI7Hvk" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/IItmbdI7Hvk/mqdefault.jpg" alt="Fapte, nu vorbe" loading="lazy">
+        <img src="https://img.youtube.com/vi/IItmbdI7Hvk/mqdefault.jpg" alt="Fapte, nu vorbe" loading="lazy" decoding="async">
         <div class="video-title">Fapte, nu vorbe</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/sjneUnbCXOM" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/sjneUnbCXOM/mqdefault.jpg" alt="Home for Christmas" loading="lazy">
+        <img src="https://img.youtube.com/vi/sjneUnbCXOM/mqdefault.jpg" alt="Home for Christmas" loading="lazy" decoding="async">
         <div class="video-title">Home for Christmas</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/pNva0OXWo1o" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/pNva0OXWo1o/mqdefault.jpg" alt="Pour toi et pour moi" loading="lazy">
+        <img src="https://img.youtube.com/vi/pNva0OXWo1o/mqdefault.jpg" alt="Pour toi et pour moi" loading="lazy" decoding="async">
         <div class="video-title">Pour toi et pour moi</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/bZHemoPx5-U" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/bZHemoPx5-U/mqdefault.jpg" alt="Călători" loading="lazy">
+        <img src="https://img.youtube.com/vi/bZHemoPx5-U/mqdefault.jpg" alt="Călători" loading="lazy" decoding="async">
         <div class="video-title">Călători</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/YxoLmmJ5Mf4" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/YxoLmmJ5Mf4/mqdefault.jpg" alt="Suntem doar noi" loading="lazy">
+        <img src="https://img.youtube.com/vi/YxoLmmJ5Mf4/mqdefault.jpg" alt="Suntem doar noi" loading="lazy" decoding="async">
         <div class="video-title">Suntem doar noi</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/p-zGeSHCgtI" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/p-zGeSHCgtI/mqdefault.jpg" alt="Spune-mi unde ești" loading="lazy">
+        <img src="https://img.youtube.com/vi/p-zGeSHCgtI/mqdefault.jpg" alt="Spune-mi unde ești" loading="lazy" decoding="async">
         <div class="video-title">Spune-mi unde ești</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/y2RWGWV6QxE" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/y2RWGWV6QxE/mqdefault.jpg" alt="Până vine dimineața" loading="lazy">
+        <img src="https://img.youtube.com/vi/y2RWGWV6QxE/mqdefault.jpg" alt="Până vine dimineața" loading="lazy" decoding="async">
         <div class="video-title">Până vine dimineața</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/6Mxz-oWdm8s" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/6Mxz-oWdm8s/mqdefault.jpg" alt="Indestructibil" loading="lazy">
+        <img src="https://img.youtube.com/vi/6Mxz-oWdm8s/mqdefault.jpg" alt="Indestructibil" loading="lazy" decoding="async">
         <div class="video-title">Indestructibil</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/y6Z-xMxjM9I" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/y6Z-xMxjM9I/mqdefault.jpg" alt="Alerg" loading="lazy">
+        <img src="https://img.youtube.com/vi/y6Z-xMxjM9I/mqdefault.jpg" alt="Alerg" loading="lazy" decoding="async">
         <div class="video-title">Alerg</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/jVxTekFdwHo" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/jVxTekFdwHo/mqdefault.jpg" alt="Mă aprinzi" loading="lazy">
+        <img src="https://img.youtube.com/vi/jVxTekFdwHo/mqdefault.jpg" alt="Mă aprinzi" loading="lazy" decoding="async">
         <div class="video-title">Mă aprinzi</div>
       </a>
       <a class="video-thumb" href="https://youtu.be/rKrvl7_B1N8" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/rKrvl7_B1N8/mqdefault.jpg" alt="Copilăria" loading="lazy">
+        <img src="https://img.youtube.com/vi/rKrvl7_B1N8/mqdefault.jpg" alt="Copilăria" loading="lazy" decoding="async">
         <div class="video-title">Copilăria</div>
       </a>
     </div>
@@ -583,7 +666,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   const THEME_KEY="carina-th8";
   function getTheme(){
     const t=localStorage.getItem(THEME_KEY);
-    return (t==="dark"||t==="light")?t:"light";
+    if(t==="dark"||t==="light") return t;
+    return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
   }
   function setTheme(t){
     applyTheme(t);
@@ -591,9 +675,13 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
     const b=document.getElementById("themeToggle");
     if(b){
       const isDark=t==="dark";
-      b.textContent=isDark?"Light":"Dark";
-      b.setAttribute("aria-label",isDark?"Schimbă pe tema light":"Schimbă pe tema dark");
-      b.setAttribute("title",isDark?"Schimbă pe tema light":"Schimbă pe tema dark");
+      b.setAttribute("data-state",isDark?"dark":"light");
+      b.setAttribute("aria-pressed",isDark?"true":"false");
+      const nextLabel=isDark?"Schimbă pe tema light":"Schimbă pe tema dark";
+      b.setAttribute("aria-label",nextLabel);
+      b.setAttribute("title",nextLabel);
+      const sr=document.getElementById("themeToggleSr");
+      if(sr) sr.textContent=nextLabel;
     }
   }
   setTheme(getTheme());
@@ -616,7 +704,14 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
     const old=el.querySelector("img");if(old)old.remove();
     const ph=el.querySelector(".hero-ph,.art-img-ph");
     const src=S.images[k] || (k==="hero" ? DEFAULT_HERO_IMAGE : "");
-    if(src){const img=document.createElement("img");img.src=src;img.alt="";img.addEventListener("click",ev=>{ev.stopPropagation();lb(src);});el.insertBefore(img,el.firstChild);if(ph)ph.style.display="none";}
+    if(src){
+      const img=document.createElement("img");
+      img.src=src;img.alt="";
+      img.loading="lazy";img.decoding="async";
+      img.addEventListener("click",ev=>{ev.stopPropagation();lb(src);});
+      el.insertBefore(img,el.firstChild);
+      if(ph)ph.style.display="none";
+    }
     else{if(ph)ph.style.display="";}
   }
 
@@ -626,7 +721,11 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
     const slots=Math.min(DESIGN_MAX,items.length);
     for(let i=0;i<slots;i++){
       const s=document.createElement("div");s.className="dthumb";
-      const img=document.createElement("img");img.src=items[i];img.alt="";img.addEventListener("click",ev=>{ev.stopPropagation();lb(items[i]);});s.appendChild(img);
+      const img=document.createElement("img");
+      img.src=items[i];img.alt="";
+      img.loading="lazy";img.decoding="async";
+      img.addEventListener("click",ev=>{ev.stopPropagation();lb(items[i]);});
+      s.appendChild(img);
       el.appendChild(s);
     }
   }
