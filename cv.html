@@ -17,13 +17,6 @@
       --radius:16px;--shadow:0 2px 18px rgba(0,0,0,.06);
       --focus:0 0 0 4px rgba(200,92,42,.18);
     }
-    [data-theme="dark"]{
-      --bg:#111110;--white:#1C1C1A;--card:#1C1C1A;--card2:#242422;
-      --dark:#F5F5F2;--text:#F5F5F2;--soft:#999992;--muted:#555550;
-      --accent:#E07040;--accent-bg:#2A1A10;--border:#2A2A28;
-      --shadow:0 2px 18px rgba(0,0,0,.3);
-      --focus:0 0 0 4px rgba(224,112,64,.22);
-    }
     html{height:100%;}
     body{
       font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);
@@ -40,9 +33,7 @@
       display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
       background:var(--bg);border-bottom:1px solid var(--border);
     }
-    @media(max-width:600px){
-      .nav{padding:10px 16px;min-height:52px;}
-    }
+    @media(max-width:600px){.nav{padding:10px 16px;min-height:52px;}}
     .nav-logo{
       font-size:15px;font-weight:700;letter-spacing:-.01em;
       min-width:0;flex:1 1 auto;
@@ -62,14 +53,31 @@
     .nb:hover{border-color:rgba(200,92,42,.35);color:var(--text);background:var(--accent-bg);}
     .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
 
-    main{
+    #pdfScroll{
       flex:1 1 auto;min-height:0;
-      display:flex;flex-direction:column;
-    }
-    .frame{
-      flex:1 1 auto;min-height:0;width:100%;border:0;display:block;background:var(--card2);
+      overflow-x:hidden;overflow-y:auto;
       -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
     }
+    #pdfStatus{
+      text-align:center;font-size:13px;font-weight:600;color:var(--soft);
+      padding:18px 16px 8px;
+    }
+    #pdfStatus.err{color:#b03a2e;}
+    #pdfPages{
+      max-width:920px;margin:0 auto;
+      padding:4px 16px max(20px, env(safe-area-inset-bottom, 0px));
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+    }
+    #pdfPages canvas{
+      display:block;max-width:100%;
+      border-radius:12px;background:#fff;
+      box-shadow:var(--shadow);
+    }
+    #pdfFallback{
+      display:none;width:100%;flex:1 1 auto;min-height:0;border:0;background:var(--card2);
+    }
+    #pdfFallback.show{display:block;}
 
     @supports(padding:max(0px)){
       .nav{
@@ -81,9 +89,11 @@
 
     @media print{
       .nav{display:none !important;}
-      body{background:#fff !important;color:#111 !important;overflow:visible !important;display:block !important;min-height:auto !important;}
-      main{display:block !important;min-height:auto !important;}
-      .frame{min-height:100vh !important;}
+      body{overflow:visible !important;display:block !important;min-height:auto !important;}
+      #pdfScroll{overflow:visible !important;}
+      #pdfStatus{display:none !important;}
+      #pdfPages{padding:0;gap:0;max-width:none;}
+      #pdfPages canvas{box-shadow:none;border-radius:0;page-break-after:always;}
     }
   </style>
 </head>
@@ -95,9 +105,103 @@
     </div>
   </nav>
 
-  <main>
-    <iframe class="frame" src="CV.pdf#toolbar=0&amp;navpanes=0&amp;scrollbar=0&amp;view=FitH" title="CV PDF"></iframe>
+  <main id="pdfScroll">
+    <div id="pdfStatus">Se încarcă CV-ul…</div>
+    <div id="pdfPages" aria-busy="true"></div>
+    <iframe id="pdfFallback" class="frame" title="CV PDF" src="CV.pdf#toolbar=0&amp;navpanes=0"></iframe>
   </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+(function(){
+  const PDF_URL="CV.pdf";
+  const WORKER="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const statusEl=document.getElementById("pdfStatus");
+  const pagesEl=document.getElementById("pdfPages");
+  const fallback=document.getElementById("pdfFallback");
+  const scrollEl=document.getElementById("pdfScroll");
+
+  let renderGen=0;
+  function showFallback(msg){
+    if(msg){statusEl.textContent=msg;statusEl.classList.add("err");}
+    else{statusEl.style.display="none";}
+    pagesEl.innerHTML="";
+    pagesEl.removeAttribute("aria-busy");
+    fallback.classList.add("show");
+    fallback.style.minHeight="calc(100dvh - 120px)";
+    fallback.style.minHeight="calc(100vh - 120px)";
+  }
+
+  async function render(){
+    const gen=++renderGen;
+    if(typeof pdfjsLib==="undefined"){
+      showFallback("Nu s-a putut încărca vizualizatorul. Se folosește vizualizarea standard.");
+      return;
+    }
+    pdfjsLib.GlobalWorkerOptions.workerSrc=WORKER;
+    statusEl.style.display="";
+    statusEl.classList.remove("err");
+    statusEl.textContent="Se încarcă CV-ul…";
+    pagesEl.innerHTML="";
+    pagesEl.setAttribute("aria-busy","true");
+    fallback.classList.remove("show");
+
+    const cw=Math.max(240, scrollEl.clientWidth-32);
+    let pdf;
+    try{
+      pdf=await pdfjsLib.getDocument({url:PDF_URL, withCredentials:false}).promise;
+    }catch(e){
+      if(gen!==renderGen)return;
+      showFallback("Deschide CV-ul în vizualizarea standard.");
+      return;
+    }
+    if(gen!==renderGen)return;
+
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    const frag=document.createDocumentFragment();
+
+    try{
+      for(let i=1;i<=pdf.numPages;i++){
+        if(gen!==renderGen)return;
+        const page=await pdf.getPage(i);
+        const base=page.getViewport({scale:1});
+        const scale=cw/base.width;
+        const viewport=page.getViewport({scale});
+
+        const canvas=document.createElement("canvas");
+        const ctx=canvas.getContext("2d",{alpha:false});
+        canvas.width=Math.floor(viewport.width*dpr);
+        canvas.height=Math.floor(viewport.height*dpr);
+        canvas.style.width=Math.floor(viewport.width)+"px";
+        canvas.style.height=Math.floor(viewport.height)+"px";
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+
+        await page.render({canvasContext:ctx, viewport}).promise;
+        frag.appendChild(canvas);
+      }
+    }catch(err){
+      if(gen!==renderGen)return;
+      showFallback("Deschide CV-ul în vizualizarea standard.");
+      return;
+    }
+
+    if(gen!==renderGen)return;
+    pagesEl.appendChild(frag);
+    statusEl.style.display="none";
+    pagesEl.removeAttribute("aria-busy");
+  }
+
+  let t;
+  function schedule(){clearTimeout(t);t=setTimeout(render,180);}
+
+  window.addEventListener("resize",schedule,{passive:true});
+  window.addEventListener("orientationchange",schedule,{passive:true});
+  render();
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(schedule).catch(function(){});}
+})();
+  </script>
+  <noscript>
+    <style>#pdfStatus,#pdfPages{display:none!important;}#pdfFallback{display:block!important;min-height:80vh;}</style>
+  </noscript>
 </body>
 </html>
-
