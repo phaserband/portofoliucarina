@@ -2,7 +2,8 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F7F5">
   <title>CV · Carina</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,20 +24,67 @@
       --shadow:0 2px 18px rgba(0,0,0,.3);
       --focus:0 0 0 4px rgba(224,112,64,.22);
     }
-    body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    html{height:100%;}
+    body{
+      font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);
+      line-height:1.55;-webkit-font-smoothing:antialiased;
+      min-height:100vh;min-height:100dvh;
+      display:flex;flex-direction:column;
+      overflow:hidden;
+      -webkit-text-size-adjust:100%;
+    }
     a{color:inherit;}
-    .nav{position:sticky;top:0;z-index:50;padding:0 48px;height:56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-bottom:1px solid var(--border);}
-    @media(max-width:600px){.nav{padding:0 18px;height:60px;}}
-    .nav-logo{font-size:15px;font-weight:700;letter-spacing:-.01em;}
-    .nav-right{display:flex;gap:8px;align-items:center;}
-    .nb{background:transparent;border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:12.5px;font-family:inherit;font-weight:600;color:var(--soft);cursor:pointer;text-decoration:none;transition:all .15s;}
+    .nav{
+      position:sticky;top:0;z-index:50;flex:0 0 auto;
+      padding:10px 48px;min-height:56px;
+      display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+      background:var(--bg);border-bottom:1px solid var(--border);
+    }
+    @media(max-width:600px){
+      .nav{padding:10px 16px;min-height:52px;}
+    }
+    .nav-logo{
+      font-size:15px;font-weight:700;letter-spacing:-.01em;
+      min-width:0;flex:1 1 auto;
+      overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    }
+    @media(max-width:380px){.nav-logo{font-size:14px;}}
+    .nav-right{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+    .nb{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-height:44px;padding:0 16px;border-radius:12px;
+      font-size:13px;font-family:inherit;font-weight:600;color:var(--soft);
+      cursor:pointer;text-decoration:none;transition:all .15s;
+      background:transparent;border:1px solid var(--border);
+      -webkit-tap-highlight-color:transparent;
+    }
+    .nb:active{border-color:rgba(200,92,42,.45);color:var(--text);background:var(--accent-bg);}
     .nb:hover{border-color:rgba(200,92,42,.35);color:var(--text);background:var(--accent-bg);}
     .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
 
-    main{height:calc(100vh - 56px);}
-    @media(max-width:600px){main{height:calc(100vh - 60px);}}
-    .frame{width:100%;height:100%;border:0;display:block;background:var(--card2);}
-    @media print{.nav{display:none !important;} body{background:#fff !important;color:#111 !important;} main{height:auto !important;}}
+    main{
+      flex:1 1 auto;min-height:0;
+      display:flex;flex-direction:column;
+    }
+    .frame{
+      flex:1 1 auto;min-height:0;width:100%;border:0;display:block;background:var(--card2);
+      -webkit-overflow-scrolling:touch;
+    }
+
+    @supports(padding:max(0px)){
+      .nav{
+        padding-left:max(16px, env(safe-area-inset-left));
+        padding-right:max(16px, env(safe-area-inset-right));
+        padding-top:max(10px, env(safe-area-inset-top));
+      }
+    }
+
+    @media print{
+      .nav{display:none !important;}
+      body{background:#fff !important;color:#111 !important;overflow:visible !important;display:block !important;min-height:auto !important;}
+      main{display:block !important;min-height:auto !important;}
+      .frame{min-height:100vh !important;}
+    }
   </style>
 </head>
 <body>
