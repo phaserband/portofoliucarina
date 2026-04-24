@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV · Carina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#F7F7F5;--white:#FFFFFF;--card:#FFFFFF;--card2:#F0EFEC;
+      --dark:#111110;--text:#111110;--soft:#666662;--muted:#AAAA9F;
+      --accent:#C85C2A;--accent-bg:#FDF1EB;--border:#E4E4DF;
+      --radius:16px;--shadow:0 2px 18px rgba(0,0,0,.06);
+      --focus:0 0 0 4px rgba(200,92,42,.18);
+    }
+    [data-theme="dark"]{
+      --bg:#111110;--white:#1C1C1A;--card:#1C1C1A;--card2:#242422;
+      --dark:#F5F5F2;--text:#F5F5F2;--soft:#999992;--muted:#555550;
+      --accent:#E07040;--accent-bg:#2A1A10;--border:#2A2A28;
+      --shadow:0 2px 18px rgba(0,0,0,.3);
+      --focus:0 0 0 4px rgba(224,112,64,.22);
+    }
+    body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;}
+    .nav{position:sticky;top:0;z-index:50;padding:0 48px;height:56px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-bottom:1px solid var(--border);}
+    @media(max-width:600px){.nav{padding:0 18px;height:60px;}}
+    .nav-logo{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+    .nav-right{display:flex;gap:8px;align-items:center;}
+    .nb{background:transparent;border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:12.5px;font-family:inherit;font-weight:600;color:var(--soft);cursor:pointer;text-decoration:none;transition:all .15s;}
+    .nb:hover{border-color:rgba(200,92,42,.35);color:var(--text);background:var(--accent-bg);}
+    .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
+
+    .wrap{max-width:900px;margin:0 auto;padding:48px;}
+    @media(max-width:600px){.wrap{padding:26px 18px 40px;}}
+    .top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+    .h{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.05;}
+    .sub{color:var(--soft);font-size:14px;max-width:62ch;}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;font-size:13.5px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;background:transparent;color:var(--text);border:1.5px solid var(--border);}
+    .btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);}
+    .card{margin-top:18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+    .notice{padding:18px 18px 0;color:var(--soft);font-size:13.5px;}
+    .frame{width:100%;height:min(78vh,920px);border:0;display:block;background:var(--card2);}
+    .fallback{padding:18px;color:var(--soft);font-size:13.5px;}
+    @media print{.nav,.actions{display:none !important;} body{background:#fff !important;color:#111 !important;} .wrap{padding:0 !important;} .card{box-shadow:none !important;border:0 !important;}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="nav-logo">Portofoliu</span>
+    <div class="nav-right">
+      <a class="nb" href="index.html#work">Înapoi</a>
+      <a class="nb" href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <div class="top">
+      <div>
+        <h1 class="h">CV</h1>
+        <p class="sub">Poți deschide CV-ul direct în pagină sau îl poți descărca în format PDF.</p>
+        <div class="actions">
+          <a class="btn" href="CV.pdf" download>Descarcă PDF</a>
+          <a class="btn" href="index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="card" aria-label="CV PDF">
+      <div class="notice">Dacă vezi o zonă goală, înseamnă că încă nu ai încărcat fișierul <strong>CV.pdf</strong> în proiect.</div>
+      <iframe class="frame" src="CV.pdf" title="CV PDF"></iframe>
+      <div class="fallback">Tip: pune CV-ul tău în rădăcina site-ului cu numele <strong>CV.pdf</strong> (sau spune-mi cum se numește fișierul și îți actualizez link-ul).</div>
+    </section>
+  </main>
+</body>
+</html>
+
