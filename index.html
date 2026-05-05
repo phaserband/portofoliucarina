@@ -37,6 +37,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 .nb{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-family:inherit;font-weight:500;color:var(--soft);cursor:pointer;transition:all .15s;}
 .nb:hover{border-color:var(--text);color:var(--text);}
 .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
+.lang{display:inline-flex;gap:6px;align-items:center;margin-right:2px;}
+.lang-btn{padding:5px 10px;min-width:44px;text-align:center;}
+.lang-btn.active{border-color:rgba(200,92,42,.45);color:var(--text);background:var(--accent-bg);}
 
 /* THEME TOGGLE */
 .theme-toggle{
@@ -314,8 +317,12 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 <nav class="nav">
   <span class="nav-logo">Carina Dumitru</span>
   <div class="nav-right">
-    <a class="nb" href="#work">Work</a>
-    <a class="nb" href="#contact">Contact</a>
+    <div class="lang" role="group" aria-label="Language">
+      <button class="nb lang-btn" id="langRO" type="button">RO</button>
+      <button class="nb lang-btn" id="langEN" type="button">EN</button>
+    </div>
+    <a class="nb" href="#work" data-i18n="navWork">Work</a>
+    <a class="nb" href="#contact" data-i18n="navContact">Contact</a>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Schimbă tema" aria-pressed="false" data-state="light">
       <span class="tt-ico sun" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -338,20 +345,20 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 <div class="hero">
   <div>
     <p class="hero-label" contenteditable="true" data-key="ey">Artist · Social Media Manager</p>
-    <h1 class="hero-name" contenteditable="true" data-key="hn">Salut, sunt Carina!</h1>
-    <p class="hero-sub" contenteditable="true" data-key="hs">Creez proiecte artistice în muzică, video, design și social media.</p>
+    <h1 class="hero-name" contenteditable="true" data-key="hn" data-i18n="heroTitle">Salut, sunt Carina!</h1>
+    <p class="hero-sub" contenteditable="true" data-key="hs" data-i18n="heroSub">Creez proiecte artistice în muzică, video, design și social media.</p>
     <div class="hero-btns">
       <a class="btn-a" href="cv.html">CV</a>
-      <a class="btn-a" href="#contact">Contact</a>
-      <a class="btn-b" href="#work">Proiecte</a>
+      <a class="btn-a" href="#contact" data-i18n="heroContact">Contact</a>
+      <a class="btn-b" href="#work" data-i18n="heroProjects">Proiecte</a>
     </div>
   </div>
   <div class="hero-photo" data-image-single="hero">
     <div class="hero-ph">
       <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-      Adaugă foto
+      <span data-i18n="addPhoto">Adaugă foto</span>
     </div>
-    <div class="ov">Schimbă foto</div>
+    <div class="ov" data-i18n="changePhoto">Schimbă foto</div>
   </div>
 </div>
 
@@ -413,7 +420,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   <!-- SOCIAL MEDIA -->
   <div class="sec" id="social-media">
     <div class="sec-head"><h2 class="sec-h">Social Media</h2></div>
-    <p class="sec-desc">Ca solistă și membră <strong>Phaser</strong>, m-am ocupat de întreaga prezență online a trupei — strategie, creare de conținut, postări și management comunitate.</p>
+    <p class="sec-desc" data-i18n="smIntro">Ca solistă și membră <strong>Phaser</strong>, m-am ocupat de întreaga prezență online a trupei — strategie, creare de conținut, postări și management comunitate.</p>
     <div class="sm-accounts">
       <div class="sma-card">
         <div class="sma-top">
@@ -422,7 +429,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
           </div>
           <div><div class="sma-name">Instagram</div><div class="sma-handle">@wearephaser</div></div>
         </div>
-        <a class="sma-link" href="https://www.instagram.com/wearephaser/" target="_blank" rel="noopener">Vezi pe Instagram ↗</a>
+        <a class="sma-link" href="https://www.instagram.com/wearephaser/" target="_blank" rel="noopener" data-i18n="seeInstagram">Vezi pe Instagram ↗</a>
       </div>
       <div class="sma-card">
         <div class="sma-top">
@@ -431,7 +438,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
           </div>
           <div><div class="sma-name">Facebook</div><div class="sma-handle">PhaserOfficial</div></div>
         </div>
-        <a class="sma-link" href="https://www.facebook.com/PhaserOfficial/" target="_blank" rel="noopener">Vezi pe Facebook ↗</a>
+        <a class="sma-link" href="https://www.facebook.com/PhaserOfficial/" target="_blank" rel="noopener" data-i18n="seeFacebook">Vezi pe Facebook ↗</a>
       </div>
       <div class="sma-card">
         <div class="sma-top">
@@ -440,7 +447,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
           </div>
           <div><div class="sma-name">TikTok</div><div class="sma-handle">@wearephaser</div></div>
         </div>
-        <a class="sma-link" href="https://www.tiktok.com/@wearephaser" target="_blank" rel="noopener">Vezi pe TikTok ↗</a>
+        <a class="sma-link" href="https://www.tiktok.com/@wearephaser" target="_blank" rel="noopener" data-i18n="seeTikTok">Vezi pe TikTok ↗</a>
       </div>
     </div>
     <div class="sm-grid">
@@ -470,8 +477,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   <!-- MUZICA -->
   <div class="sec" id="muzica">
     <div class="sec-head">
-      <h2 class="sec-h">Muzică</h2>
-      <a href="https://open.spotify.com/artist/31XVKPMoexodcassow7K6g" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">Vezi pe Spotify ↗</a>
+      <h2 class="sec-h" data-i18n="musicTitle">Muzică</h2>
+      <a href="https://open.spotify.com/artist/31XVKPMoexodcassow7K6g" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;" data-i18n="seeSpotify">Vezi pe Spotify ↗</a>
     </div>
     <p class="sec-desc long" contenteditable="true" data-key="music-long">Activitatea mea muzicală se construiește în jurul versatilității — atât în zona de stiluri, cât și în modul în care îmi definesc identitatea artistică. Cu PHASER explorez zona pop-rock, iar prin proiectul Mademoiselle Claudette intru într-un univers lo-fi, cu influențe franceze, mai intim și atmosferic.<br><br>Am colaborat în studio cu George Hora, alături de care am lansat piesa „Armele jos”, și cu trupa Desant pentru piesa „Poveste fără nume”, experiențe care mi-au extins direcțiile creative. Sunt deschisă către colaborări noi și continui să explorez forme diferite de expresie muzicală și estetică.<br><br>Activitatea mea în producție muzicală include atât lucrul în studio, cât și proiecte interdisciplinare. Am fost asistent de producție pentru albumul PHASER „Început de Univers”, contribuind la organizarea și desfășurarea procesului de înregistrare, dar și post-producție.</p>
     <div class="spotify-embed">
@@ -483,9 +490,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   <div class="sec" id="video">
     <div class="sec-head">
       <h2 class="sec-h">Video</h2>
-      <a href="https://www.youtube.com/user/TrupaPhaser" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">Vezi canal YouTube ↗</a>
+      <a href="https://www.youtube.com/user/TrupaPhaser" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;" data-i18n="seeYouTube">Vezi canal YouTube ↗</a>
     </div>
-    <p class="sec-desc long">
+    <p class="sec-desc long" data-i18n="videoIntro">
       În zona video am semnat regia majorității videoclipurilor PHASER, construind un univers vizual coerent în jurul proiectului. M-am implicat în direcția creativă, styling și producție, urmărind fiecare detaliu de la concept la execuție.<br><br>
       Pentru mine, videoclipul este o extensie a muzicii — un spațiu în care imaginea și sunetul se completează natural.
     </p>
@@ -571,8 +578,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 
   <!-- COMPOZITIE -->
   <div class="sec" id="compozitie-productie">
-    <div class="sec-head"><h2 class="sec-h">Compoziție & Producție</h2></div>
-    <p class="sec-desc">Am compus și produs muzică pentru proiecte de teatru și formate alternative, colaborând cu regizori și artiști din zona performativă.</p>
+    <div class="sec-head"><h2 class="sec-h" data-i18n="compTitle">Compoziție & Producție</h2></div>
+    <p class="sec-desc" data-i18n="compIntro">Am compus și produs muzică pentru proiecte de teatru și formate alternative, colaborând cu regizori și artiști din zona performativă.</p>
     <div class="credits-grid">
 
       <div class="credits-card">
@@ -607,7 +614,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 
   <!-- PREMII -->
   <div class="sec">
-    <div class="sec-head"><h2 class="sec-h">Premii</h2></div>
+    <div class="sec-head"><h2 class="sec-h" data-i18n="awardsTitle">Premii</h2></div>
     <div class="awards-list">
       <div class="award-item">
         <div class="award-icon">🏆</div>
@@ -632,7 +639,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   <div class="sec" id="graphic-design">
     <div class="sec-head">
       <h2 class="sec-h">Graphic Design</h2>
-      <span class="sec-hint">Selecție lucrări</span>
+      <span class="sec-hint" data-i18n="designHint">Selecție lucrări</span>
     </div>
     <div class="art-card" style="max-width:100%;">
       <div class="art-body">
@@ -655,7 +662,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 
 <div class="lb" id="lb" onclick="this.classList.remove('show')"><img id="lbImg" alt=""></div>
 
-<button type="button" class="to-top" id="toTop" aria-label="Înapoi sus pe pagină" title="Înapoi sus">
+<button type="button" class="to-top" id="toTop" aria-label="Înapoi sus pe pagină" title="Înapoi sus" data-i18n-aria="toTopAria" data-i18n-title="toTopTitle">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M12 20V8M6 14l6-6 6 6"/>
   </svg>
@@ -664,6 +671,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 <script>
 (function(){
   const SK="carina-v8",MW=1400,Q=.82,SL=9,DESIGN_MAX=80;
+  const LANG_KEY="carina-lang";
   const DEFAULT_HERO_IMAGE="SDF02538.jpg";
   const DEFAULT_DESIGN_IMAGES=[
     "Poze%20Grafic%20Design/IMG_3446.PNG",
@@ -698,7 +706,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   document.querySelectorAll("[contenteditable]").forEach(e=>e.removeAttribute("contenteditable"));
   try{const r=localStorage.getItem(SK);if(r)S={texts:{},images:{},galleries:{},links:{},...JSON.parse(r)};}catch(e){}
 
-  function ind(m,e){const el=document.getElementById("si");el.textContent=m;el.classList.toggle("error",!!e);el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1300);}
+  function ind(m,e){const el=document.getElementById("si");if(!el)return;el.textContent=m;el.classList.toggle("error",!!e);el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1300);}
 
   function applyTheme(t){document.documentElement.setAttribute("data-theme",t);}
   const THEME_KEY="carina-th8";
@@ -715,7 +723,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
       const isDark=t==="dark";
       b.setAttribute("data-state",isDark?"dark":"light");
       b.setAttribute("aria-pressed",isDark?"true":"false");
-      const nextLabel=isDark?"Schimbă pe tema light":"Schimbă pe tema dark";
+      const lang=getLang();
+      const d=I18N[lang]||I18N.ro;
+      const nextLabel=isDark?d.themeToLight:d.themeToDark;
       b.setAttribute("aria-label",nextLabel);
       b.setAttribute("title",nextLabel);
       const sr=document.getElementById("themeToggleSr");
@@ -723,6 +733,112 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
     }
   }
   setTheme(getTheme());
+
+  const I18N={
+    ro:{
+      navWork:"Work",
+      navContact:"Contact",
+      heroTitle:"Salut, sunt Carina!",
+      heroSub:"Creez proiecte artistice în muzică, video, design și social media.",
+      heroContact:"Contact",
+      heroProjects:"Proiecte",
+      addPhoto:"Adaugă foto",
+      changePhoto:"Schimbă foto",
+      smIntro:"Ca solistă și membră <strong>Phaser</strong>, m-am ocupat de întreaga prezență online a trupei — strategie, creare de conținut, postări și management comunitate.",
+      seeInstagram:"Vezi pe Instagram ↗",
+      seeFacebook:"Vezi pe Facebook ↗",
+      seeTikTok:"Vezi pe TikTok ↗",
+      musicTitle:"Muzică",
+      seeSpotify:"Vezi pe Spotify ↗",
+      seeYouTube:"Vezi canal YouTube ↗",
+      videoIntro:"În zona video am semnat regia majorității videoclipurilor PHASER, construind un univers vizual coerent în jurul proiectului. M-am implicat în direcția creativă, styling și producție, urmărind fiecare detaliu de la concept la execuție.<br><br>Pentru mine, videoclipul este o extensie a muzicii — un spațiu în care imaginea și sunetul se completează natural.",
+      compTitle:"Compoziție & Producție",
+      compIntro:"Am compus și produs muzică pentru proiecte de teatru și formate alternative, colaborând cu regizori și artiști din zona performativă.",
+      awardsTitle:"Premii",
+      designHint:"Selecție lucrări",
+      toTopAria:"Înapoi sus pe pagină",
+      toTopTitle:"Înapoi sus",
+      themeToLight:"Schimbă pe tema light",
+      themeToDark:"Schimbă pe tema dark",
+      saved:"Salvat",
+      spaceFull:"Spațiu plin"
+    },
+    en:{
+      navWork:"Work",
+      navContact:"Contact",
+      heroTitle:"Hi, I'm Carina!",
+      heroSub:"I create artistic projects in music, video, design, and social media.",
+      heroContact:"Contact",
+      heroProjects:"Projects",
+      addPhoto:"Add photo",
+      changePhoto:"Change photo",
+      smIntro:"As the lead singer and a member of <strong>Phaser</strong>, I managed the band's entire online presence — strategy, content creation, posting, and community management.",
+      seeInstagram:"View on Instagram ↗",
+      seeFacebook:"View on Facebook ↗",
+      seeTikTok:"View on TikTok ↗",
+      musicTitle:"Music",
+      seeSpotify:"View on Spotify ↗",
+      seeYouTube:"View YouTube channel ↗",
+      videoIntro:"In the video area, I directed most of PHASER's music videos, building a coherent visual universe around the project. I was involved in creative direction, styling, and production—following every detail from concept to execution.<br><br>For me, the music video is an extension of the music — a space where image and sound naturally complement each other.",
+      compTitle:"Composition & Production",
+      compIntro:"I composed and produced music for theatre projects and alternative formats, collaborating with directors and artists from the performing arts scene.",
+      awardsTitle:"Awards",
+      designHint:"Selected works",
+      toTopAria:"Back to top",
+      toTopTitle:"Back to top",
+      themeToLight:"Switch to light theme",
+      themeToDark:"Switch to dark theme",
+      saved:"Saved",
+      spaceFull:"Storage full"
+    }
+  };
+
+  function applyLang(lang){
+    const d=I18N[lang]||I18N.ro;
+    document.documentElement.setAttribute("lang",lang);
+    const roBtn=document.getElementById("langRO");
+    const enBtn=document.getElementById("langEN");
+    if(roBtn) roBtn.classList.toggle("active",lang==="ro");
+    if(enBtn) enBtn.classList.toggle("active",lang==="en");
+
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const k=el.getAttribute("data-i18n");
+      if(!k||!d[k]) return;
+      el.innerHTML=d[k];
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(el=>{
+      const k=el.getAttribute("data-i18n-aria");
+      if(k&&d[k]) el.setAttribute("aria-label",d[k]);
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(el=>{
+      const k=el.getAttribute("data-i18n-title");
+      if(k&&d[k]) el.setAttribute("title",d[k]);
+    });
+
+    const b=document.getElementById("themeToggle");
+    if(b){
+      const isDark=getTheme()==="dark";
+      const nextLabel=isDark?d.themeToLight:d.themeToDark;
+      b.setAttribute("aria-label",nextLabel);
+      b.setAttribute("title",nextLabel);
+      const sr=document.getElementById("themeToggleSr");
+      if(sr) sr.textContent=nextLabel;
+    }
+  }
+
+  function getLang(){
+    const l=localStorage.getItem(LANG_KEY);
+    return (l==="en"||l==="ro")?l:"ro";
+  }
+  function setLang(l){
+    try{localStorage.setItem(LANG_KEY,l);}catch(e){}
+    applyLang(l);
+  }
+  const langRO=document.getElementById("langRO");
+  const langEN=document.getElementById("langEN");
+  if(langRO) langRO.addEventListener("click",()=>setLang("ro"));
+  if(langEN) langEN.addEventListener("click",()=>setLang("en"));
+  applyLang(getLang());
 
   const themeBtn=document.getElementById("themeToggle");
   if(themeBtn){
@@ -747,7 +863,17 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   }
 
   let st;
-  function save(now){clearTimeout(st);const run=()=>{try{localStorage.setItem(SK,JSON.stringify(S));ind("Salvat");}catch(e){ind("Spațiu plin",true);}};if(now)run();else st=setTimeout(run,400);}
+  function save(now){
+    clearTimeout(st);
+    const run=()=>{
+      const lang=getLang();
+      const d=I18N[lang]||I18N.ro;
+      try{localStorage.setItem(SK,JSON.stringify(S));ind(d.saved);}
+      catch(e){ind(d.spaceFull,true);}
+    };
+    if(now)run();
+    else st=setTimeout(run,400);
+  }
 
   function lb(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("show");}
   window.addEventListener("keydown",ev=>{if(ev.key==="Escape")document.getElementById("lb").classList.remove("show");});
