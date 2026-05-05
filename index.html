@@ -883,8 +883,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
         let html=creditsGrid.dataset.roHtml;
         // Headings
         html=html.split(">Teatru</").join(">THEATRE</");
-        // Handle dash variants + any casing (e.g. JINGLE–URI)
-        html=html.replace(/Reclame\s*&\s*Jingle[-–—]uri/gi,"ADS & Jingles");
+        // Handle dash variants + any casing (e.g. JINGLE–URI / JINGLE‑URI / JINGLE−URI)
+        // Includes: hyphen-minus, hyphen, non-breaking hyphen, figure dash, en dash, em dash, minus sign.
+        html=html.replace(/Reclame\s*&\s*Jingle\s*[-‐‑‒–—−]\s*uri/gi,"ADS & JINGLES");
         // Roles / labels (order matters: longer first)
         html=html.replace(/Producător muzical/g,"Musical Producer");
         html=html.replace(/Inginer de sunet/g,"Sound Engineer");
