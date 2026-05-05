@@ -37,8 +37,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 .nb{background:transparent;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-family:inherit;font-weight:500;color:var(--soft);cursor:pointer;transition:all .15s;}
 .nb:hover{border-color:var(--text);color:var(--text);}
 .nb:focus-visible{outline:none;box-shadow:var(--focus);border-color:transparent;}
-.lang{display:inline-flex;gap:6px;align-items:center;margin-right:2px;}
-.lang-btn{padding:5px 10px;min-width:44px;text-align:center;}
+.lang{display:inline-flex;gap:6px;align-items:center;margin:0 2px;}
+.lang-btn{padding:4px 8px;min-width:38px;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.04em;}
 .lang-btn.active{border-color:rgba(200,92,42,.45);color:var(--text);background:var(--accent-bg);}
 
 /* THEME TOGGLE */
@@ -256,6 +256,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   .nav{height:auto; padding-top:10px; padding-bottom:10px;}
   .nav-right{gap:8px;}
   .nb{padding:8px 12px;border-radius:10px;font-size:12.5px;}
+  .lang-btn{padding:6px 10px;min-width:38px;font-size:12px;}
   .theme-toggle{--h:38px; --w:82px;}
   .hero{padding:32px 18px 40px;gap:22px;}
   .hero-name{max-width:none;}
@@ -317,12 +318,12 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 <nav class="nav">
   <span class="nav-logo">Carina Dumitru</span>
   <div class="nav-right">
+    <a class="nb" href="#work" data-i18n="navWork">Work</a>
+    <a class="nb" href="#contact" data-i18n="navContact">Contact</a>
     <div class="lang" role="group" aria-label="Language">
       <button class="nb lang-btn" id="langRO" type="button">RO</button>
       <button class="nb lang-btn" id="langEN" type="button">EN</button>
     </div>
-    <a class="nb" href="#work" data-i18n="navWork">Work</a>
-    <a class="nb" href="#contact" data-i18n="navContact">Contact</a>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Schimbă tema" aria-pressed="false" data-state="light">
       <span class="tt-ico sun" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
