@@ -121,12 +121,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
 (function(){
-  const PDF_URL="CV.pdf";
+  const LANG_KEY="carina-lang";
+  function getLang(){
+    try{
+      const l=localStorage.getItem(LANG_KEY);
+      return (l==="en"||l==="ro")?l:"ro";
+    }catch(e){return "ro";}
+  }
+  const PDF_URL=(getLang()==="en") ? "CV_EN.pdf" : "CV.pdf";
   const WORKER="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
   const statusEl=document.getElementById("pdfStatus");
   const pagesEl=document.getElementById("pdfPages");
   const fallback=document.getElementById("pdfFallback");
   const scrollEl=document.getElementById("pdfScroll");
+  if(fallback) fallback.src=PDF_URL+"#toolbar=0&navpanes=0";
 
   let renderGen=0;
   function showFallback(msg){
