@@ -883,17 +883,19 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
         creditsGrid.innerHTML=creditsGrid.dataset.roHtml;
       }else{
         let html=creditsGrid.dataset.roHtml;
-        // Headings
-        html=html.split(">Teatru</").join(">THEATRE</");
-        // Handle dash variants + any casing (e.g. JINGLE–URI / JINGLE‑URI / JINGLE−URI)
-        // Includes: hyphen-minus, hyphen, non-breaking hyphen, figure dash, en dash, em dash, minus sign.
-        html=html.replace(/Reclame\s*&\s*Jingle\s*[-‐‑‒–—−]\s*uri/gi,"ADS & JINGLES");
         // Roles / labels (order matters: longer first)
         html=html.replace(/Producător muzical/g,"Musical Producer");
         html=html.replace(/Inginer de sunet/g,"Sound Engineer");
         html=html.replace(/Compozitor/g,"Composer");
         html=html.replace(/Producător/g,"Producer");
         creditsGrid.innerHTML=html;
+
+        // Headings (DOM-based so dash variants don't matter)
+        creditsGrid.querySelectorAll(".credits-cat").forEach(el=>{
+          const t=(el.textContent||"").trim();
+          if(/^teatru$/i.test(t)) el.textContent="THEATRE";
+          if(/^reclame/i.test(t)) el.textContent="ADS & JINGLES";
+        });
       }
     }
   }
