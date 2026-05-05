@@ -872,6 +872,26 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
       const sr=document.getElementById("themeToggleSr");
       if(sr) sr.textContent=nextLabel;
     }
+
+    // Credits section: keep RO as source of truth and transform for EN
+    const creditsGrid=document.querySelector("#compozitie-productie .credits-grid");
+    if(creditsGrid){
+      if(!creditsGrid.dataset.roHtml) creditsGrid.dataset.roHtml=creditsGrid.innerHTML;
+      if(lang==="ro"){
+        creditsGrid.innerHTML=creditsGrid.dataset.roHtml;
+      }else{
+        let html=creditsGrid.dataset.roHtml;
+        // Headings
+        html=html.replace(/>Teatru</g,">THEATRE<");
+        html=html.replace(/>Reclame & Jingle-uri</g,">ADS & Jingles<");
+        // Roles / labels (order matters: longer first)
+        html=html.replace(/Producător muzical/g,"Musical Producer");
+        html=html.replace(/Inginer de sunet/g,"Sound Engineer");
+        html=html.replace(/Compozitor/g,"Composer");
+        html=html.replace(/Producător/g,"Producer");
+        creditsGrid.innerHTML=html;
+      }
+    }
   }
 
   function getLang(){
