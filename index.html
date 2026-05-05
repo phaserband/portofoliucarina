@@ -881,9 +881,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
         creditsGrid.innerHTML=creditsGrid.dataset.roHtml;
       }else{
         let html=creditsGrid.dataset.roHtml;
-        // Headings (avoid regex escaping issues)
+        // Headings
         html=html.split(">Teatru</").join(">THEATRE</");
-        html=html.split(">Reclame & Jingle-uri</").join(">ADS & Jingles</");
+        // Handle dash variants + any casing (e.g. JINGLE–URI)
+        html=html.replace(/Reclame\s*&\s*Jingle[-–—]uri/gi,"ADS & Jingles");
         // Roles / labels (order matters: longer first)
         html=html.replace(/Producător muzical/g,"Musical Producer");
         html=html.replace(/Inginer de sunet/g,"Sound Engineer");
