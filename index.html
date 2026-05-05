@@ -882,8 +882,8 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
       }else{
         let html=creditsGrid.dataset.roHtml;
         // Headings
-        html=html.replace(/>Teatru</g,">THEATRE<");
-        html=html.replace(/>Reclame & Jingle-uri</g,">ADS & Jingles<");
+        html=html.replace(/>Teatru<\\//g,">THEATRE</");
+        html=html.replace(/>Reclame & Jingle-uri<\\//g,">ADS & Jingles</");
         // Roles / labels (order matters: longer first)
         html=html.replace(/Producător muzical/g,"Musical Producer");
         html=html.replace(/Inginer de sunet/g,"Sound Engineer");
