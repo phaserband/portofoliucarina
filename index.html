@@ -732,7 +732,6 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
       if(sr) sr.textContent=nextLabel;
     }
   }
-  setTheme(getTheme());
 
   const I18N={
     ro:{
@@ -839,6 +838,9 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
   if(langRO) langRO.addEventListener("click",()=>setLang("ro"));
   if(langEN) langEN.addEventListener("click",()=>setLang("en"));
   applyLang(getLang());
+
+  // Theme needs I18N to exist (labels are localized)
+  setTheme(getTheme());
 
   const themeBtn=document.getElementById("themeToggle");
   if(themeBtn){
